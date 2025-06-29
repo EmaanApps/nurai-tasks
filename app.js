@@ -1,54 +1,92 @@
 // Replace this with your actual deployed web app URL
 const API_URL = "https://script.google.com/macros/s/AKfycbzhSHFcFAhu_DMGJg_puywUTNiS1JSKbjrgjCC_ZRSCaNIhWQZhTEAdgLfqCclDuNJv/exec";
 
-// Load tasks from backend and render in the UI
-async function loadTasks() {
-  try {
-    const response = await fetch(`${API_URL}?action=getTasks`);
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    const tasks = await response.json();
+// Utility to format ISO datetime-local input to Date string accepted by backend
+function formatDateInput(value) {
+  if (!value) return "";
+  return new Date(value).toISOString();
+}
 
-    console.log("Tasks loaded:", tasks);
-    renderTaskList(tasks);
+// Fetch tasks from backend
+async function fetchTasks() {
+  try {
+    // Example: fetch all tasks (can add query parameters if you want filtering)
+    const response = await fetch(`${API_URL}?action=getTasks`);
+    if (!response.ok) throw new Error("Failed to fetch tasks");
+    const tasks = await response.json();
+    renderTasks(tasks);
   } catch (error) {
-    console.error("Failed to load tasks:", error);
-    showError("Failed to load tasks from server.");
+    console.error("Error fetching tasks:", error);
+    document.getElementById("taskList").innerHTML = `<div class="alert alert-danger">${error.message}</div>`;
   }
 }
 
-// Render tasks in the HTML task list container
-function renderTaskList(tasks) {
-  const taskList = document.getElementById("taskList");
-  if (!taskList) return;
+// Render task list in the page
+function renderTasks(tasks) {
+  if (!tasks || tasks.length === 0) {
+    document.getElementById("taskList").innerHTML = `<p>No tasks found.</p>`;
+    return;
+  }
+  let html = `<table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>TaskID</th><th>Title</th><th>Description</th><th>Status</th><th>Deadline</th><th>Priority</th><th>Tags</th>
+      </tr>
+    </thead>
+    <tbody>
+  `;
+  tasks.forEach(task => {
+    html += `<tr>
+      <td>${task.TaskID || ""}</td>
+      <td>${task.Title || ""}</td>
+      <td>${task.Description || ""}</td>
+      <td>${task.Status || ""}</td>
+      <td>${task.Deadline ? new Date(task.Deadline).toLocaleString() : ""}</td>
+      <td>${task.Priority || ""}</td>
+      <td>${task.Tags || ""}</td>
+    </tr>`;
+  });
+  html += "</tbody></table>";
+  document.getElementById("taskList").innerHTML = html;
+}
 
-  taskList.innerHTML = ""; // clear existing tasks
+// Handle form submission to add task
+document.getElementById("taskForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-  if (!tasks.length) {
-    taskList.innerHTML = "<p>No tasks found.</p>";
+  const task = {
+    Title: document.getElementById("title").value.trim(),
+    Description: document.getElementById("description").value.trim(),
+    Status: document.getElementById("status").value,
+    Deadline: formatDateInput(document.getElementById("deadline").value),
+    Priority: document.getElementById("priority").value,
+    Tags: document.getElementById("tags").value.trim()
+  };
+
+  if (!task.Title) {
+    alert("Title is required");
     return;
   }
 
-  tasks.forEach(task => {
-    // Create task item
-    const item = document.createElement("li");
-    item.className = "list-group-item";
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "addTask", task }),
+    });
+    const result = await response.json();
 
-    // Simple display: TaskID and Title, extend as needed
-    item.textContent = `#${task.TaskID} - ${task.Title} [Status: ${task.Status}]`;
-
-    taskList.appendChild(item);
-  });
-}
-
-// Display an error message on UI
-function showError(message) {
-  const errorDiv = document.getElementById("errorMessage");
-  if (errorDiv) {
-    errorDiv.textContent = message;
-    errorDiv.style.display = "block";
+    if (result.success) {
+      alert(result.message);
+      e.target.reset();
+      fetchTasks();
+    } else {
+      alert("Failed to add task: " + (result.error || "Unknown error"));
+    }
+  } catch (error) {
+    alert("Error: " + error.message);
   }
-}
+});
 
-window.onload = () => {
-  loadTasks();
-};
+// Initial load
+fetchTasks();
