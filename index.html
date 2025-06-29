@@ -3,21 +3,72 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Nur Task Manager</title>
-<link rel="stylesheet" href="styles/style.css" />
+<title>Nur Task Manager - Full Task Entry</title>
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 <div class="container">
-  <h1>Nur Task Manager</h1>
+  <h1>Nur Task Manager - Add New Task</h1>
   <form id="task-form">
-    <label for="task-title">Task Title:</label>
-    <input type="text" id="task-title" name="task-title" required />
+    <!-- Hidden TaskID -->
+    <input type="hidden" id="task-id" name="task-id" />
 
-    <label for="task-date">Date:</label>
-    <input type="date" id="task-date" name="task-date" required />
+    <label for="title">Title *</label>
+    <input type="text" id="title" name="title" required />
 
-    <label for="task-time">Time:</label>
-    <input type="time" id="task-time" name="task-time" required />
+    <label for="description">Description</label>
+    <textarea id="description" name="description" rows="3"></textarea>
+
+    <label for="type">Type</label>
+    <select id="type" name="type">
+      <option value="Task" selected>Task</option>
+      <option value="Folder">Folder</option>
+      <option value="Label">Label</option>
+    </select>
+
+    <label for="parent-id">Parent ID</label>
+    <input type="text" id="parent-id" name="parent-id" placeholder="Parent Task/Folder ID" />
+
+    <label for="status">Status</label>
+    <select id="status" name="status">
+      <option value="New" selected>New</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Completed">Completed</option>
+      <option value="Ignored">Ignored</option>
+    </select>
+
+    <label for="deadline-date">Deadline Date</label>
+    <input type="date" id="deadline-date" name="deadline-date" />
+
+    <label for="deadline-time">Deadline Time</label>
+    <input type="time" id="deadline-time" name="deadline-time" />
+
+    <label for="deadline-type">Deadline Type</label>
+    <select id="deadline-type" name="deadline-type">
+      <option value="Soft" selected>Soft</option>
+      <option value="Hard">Hard</option>
+    </select>
+
+    <label for="notification">Notification</label>
+    <select id="notification" name="notification">
+      <option value="None" selected>None</option>
+      <option value="Email">Email</option>
+      <option value="Popup">Popup</option>
+      <option value="SMS">SMS</option>
+    </select>
+
+    <label for="tags">Tags (comma separated)</label>
+    <input type="text" id="tags" name="tags" placeholder="e.g. work, urgent, home" />
+
+    <label for="priority">Priority</label>
+    <select id="priority" name="priority">
+      <option value="Low">Low</option>
+      <option value="Medium" selected>Medium</option>
+      <option value="Urgent">Urgent</option>
+    </select>
+
+    <label for="notes">Notes</label>
+    <textarea id="notes" name="notes" rows="3"></textarea>
 
     <button type="submit">Add Task</button>
   </form>
@@ -25,6 +76,6 @@
   <div id="tasks-list"></div>
 </div>
 
-<script src="scripts/app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
