@@ -46,7 +46,7 @@ function renderTasks() {
 
 // Send task data to Google Apps Script Web App (stub - update URL!)
 function sendTaskToBackend(task) {
-  const scriptUrl = 'YOUR_GOOGLE_APPS_SCRIPT_WEBAPP_URL_HERE'; // <-- Replace with your URL
+  const scriptUrl = 'https://script.google.com/macros/s/AKfycbzhSHFcFAhu_DMGJg_puywUTNiS1JSKbjrgjCC_ZRSCaNIhWQZhTEAdgLfqCclDuNJv/exec'; // <-- Replace with your URL
 
   return fetch(scriptUrl, {
     method: 'POST',
