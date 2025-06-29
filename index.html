@@ -1,59 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>🧠 Nur Task Manager</title>
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="styles/style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nur Task Manager</title>
+<link rel="stylesheet" href="styles/style.css" />
 </head>
 <body>
-  <div class="container py-5">
-    <div class="text-center mb-4">
-      <img src="assets/nur_logo.svg" alt="Nur AI Logo" class="logo mb-3" />
-      <h1>🧠 Nur Task Manager</h1>
-      <p class="lead text-secondary">Manage your tasks smartly, with Nur AI 💜</p>
-    </div>
+<div class="container">
+  <h1>Nur Task Manager</h1>
+  <form id="task-form">
+    <label for="task-title">Task Title:</label>
+    <input type="text" id="task-title" name="task-title" required />
 
-    <form id="task-form" class="mb-4">
-      <div class="row g-2">
-        <div class="col-md-5">
-          <input
-            type="text"
-            id="task-title"
-            class="form-control"
-            placeholder="Task title"
-            required
-          />
-        </div>
-        <div class="col-md-3">
-          <input
-            type="datetime-local"
-            id="task-deadline"
-            class="form-control"
-            placeholder="Deadline"
-          />
-        </div>
-        <div class="col-md-3">
-          <input
-            type="text"
-            id="task-tags"
-            class="form-control"
-            placeholder="#tags (comma separated)"
-          />
-        </div>
-        <div class="col-md-1">
-          <button type="submit" class="btn btn-primary w-100">➕</button>
-        </div>
-      </div>
-    </form>
+    <label for="task-date">Date:</label>
+    <input type="date" id="task-date" name="task-date" required />
 
-    <ul id="task-list" class="list-group"></ul>
-  </div>
+    <label for="task-time">Time:</label>
+    <input type="time" id="task-time" name="task-time" required />
 
-  <script src="scripts/main.js"></script>
+    <button type="submit">Add Task</button>
+  </form>
+
+  <div id="tasks-list"></div>
+</div>
+
+<script src="scripts/app.js"></script>
 </body>
 </html>

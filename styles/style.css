@@ -1,38 +1,67 @@
-
 body {
-  background-color: #f4f1ff;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #3b0a45;
+  font-family: Arial, sans-serif;
+  background-color: #f7f0ff;
+  color: #3a0ca3;
+  margin: 0;
+  padding: 20px;
 }
-
-.logo {
-  width: 120px;
-  height: 120px;
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(58,12,163,0.15);
 }
-
-#task-list .list-group-item {
-  border-left: 5px solid #6a0dad;
-  background: #fff;
-  margin-bottom: 0.75rem;
-  border-radius: 0.5rem;
-  transition: box-shadow 0.3s ease;
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #5f27cd;
 }
-
-#task-list .list-group-item:hover {
-  box-shadow: 0 4px 10px rgba(106, 13, 173, 0.3);
+form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
 }
-
-.form-control:focus {
-  border-color: #6a0dad;
-  box-shadow: 0 0 8px rgba(106, 13, 173, 0.4);
+form input[type="text"],
+form input[type="date"],
+form input[type="time"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  border: 1px solid #5f27cd;
+  border-radius: 4px;
 }
-
-.btn-primary {
-  background-color: #6a0dad;
-  border-color: #6a0dad;
+form button {
+  margin-top: 15px;
+  background-color: #5f27cd;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+  width: 100%;
 }
-
-.btn-primary:hover {
-  background-color: #580aaf;
-  border-color: #580aaf;
+form button:hover {
+  background-color: #3a0ca3;
+}
+#tasks-list {
+  margin-top: 30px;
+}
+.task-item {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.task-item:last-child {
+  border-bottom: none;
+}
+.task-title {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.task-date-time {
+  color: #777;
+  font-size: 0.9em;
 }
