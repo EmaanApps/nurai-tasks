@@ -1,0 +1,38 @@
+
+body {
+  background-color: #f4f1ff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #3b0a45;
+}
+
+.logo {
+  width: 120px;
+  height: 120px;
+}
+
+#task-list .list-group-item {
+  border-left: 5px solid #6a0dad;
+  background: #fff;
+  margin-bottom: 0.75rem;
+  border-radius: 0.5rem;
+  transition: box-shadow 0.3s ease;
+}
+
+#task-list .list-group-item:hover {
+  box-shadow: 0 4px 10px rgba(106, 13, 173, 0.3);
+}
+
+.form-control:focus {
+  border-color: #6a0dad;
+  box-shadow: 0 0 8px rgba(106, 13, 173, 0.4);
+}
+
+.btn-primary {
+  background-color: #6a0dad;
+  border-color: #6a0dad;
+}
+
+.btn-primary:hover {
+  background-color: #580aaf;
+  border-color: #580aaf;
+}
